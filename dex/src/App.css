@@ -30,6 +30,17 @@ header {
   gap: 20px;
 }
 
+.gridLock{
+  font-size: 1.5em;
+  background-color: lime;
+  background-image: linear-gradient(90deg, white, lime);
+  background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-text-fill-color: transparent;
+}
+
 .rightH {
   display: flex;
   align-items: center;
