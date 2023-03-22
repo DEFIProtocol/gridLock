@@ -6,22 +6,27 @@ const style = {
     accentColor: 'limegreen',
   },
   checkboxContainer: {
-    margin: '3%',
+    margin: '0px auto',
+    padding: "5%",
   },
   input: {
     margin: '2%',
-    width: '100%',
-    alignItems: 'center',
+    width: '80%',
+    margin: "0px auto",
+    backgroundColor: "#202020",
+    color: "#909090",
+    textAlign: "center"
   },
   buttonContainer: {
     display: 'flex',
-    justifyContent: 'space-between',
-    textAlign: 'center',
+    justifyContent: 'space-evenly',
+    margin: "0px auto",
+    padding: "5%",
+    width: "100%"
   },
   buyButton: {
     backgroundColor: 'green',
     color: 'black',
-    margin: '10px',
     height: '40px',
     width: '80px',
     border: 'solid 3px black',
@@ -30,7 +35,6 @@ const style = {
   sellButton: {
     backgroundColor: 'red',
     color: 'black',
-    margin: '10px',
     height: '40px',
     width: '80px',
     border: 'solid 3px black',

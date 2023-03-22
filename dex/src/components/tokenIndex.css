@@ -35,6 +35,7 @@
   margin: 5% auto;
   display: flex;
   justify-content: space-evenly;
+  width: 100%;
 }
 .selected {
   color: lime !important;
@@ -64,10 +65,25 @@
 .description {
   text-align: left;
   width: 100%;
-  padding: 0px 5% 5% 5%;
+  padding: 0px 5% 5% 0%;
+}
+.stats-card{
+  background-color: #202020 !important;
+  width: 100% !important;
+  border-radius: .5em;
+  margin: 5px;
 }
 
-/* Stat*/
+.stats-card-data{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  color: lime;
+}
+.stat-item {
+  padding: 3%;
+}
+
 .coin-stats-card {
   background-color: lime !important ;
   display: flex !important;
@@ -81,27 +97,24 @@
   font-weight: 700;
 }
 
-.coin-detail-container{
-  color: black;
+@media screen and (max-width:750px){
+  .left-column{
+      width: 100%;
+  }
+  .chart-order{
+      flex-direction: column;
+  }
+  .right-column{
+      width: 100%;
+  }
+}
+@media screen and (max-width:890px){
+  .coin-stats-card{
+      flex-direction: column;
+  }
 }
 
-.coin-links{
-padding: 0px 20px;
-  flex: 0.5;
-}
-
-.coin-link{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-  padding: 20px;
-}
-
-.link-name{
-  text-transform: capitalize;
-  font-size: 1rem;
-}
+/* Stat
 
 .coin-link a{
   color: var(--pink);
@@ -127,19 +140,33 @@ padding: 0px 20px;
 
 @media screen and (max-width: 500px){
   .coin-links{
-      padding: 0px;
+    padding: 0px;
   }
   .coin-detail-container{
-      margin: 0;
+    margin: 0;
   }
 }
 @media screen and (max-width: 500px){
   .heading{
-      margin-top: 20px;
+    margin-top: 20px;
   }
 }
 
-  
+*/
+/* Cryptocurrency Page */
+.column-title{
+  margin-left: 17%;
+  width: 77%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+
+
+
+
   /* ETHDEX */
   
   .ETHDEX {

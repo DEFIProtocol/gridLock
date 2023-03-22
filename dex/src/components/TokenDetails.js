@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useParams } from "react-router-dom";
-import { Card, Row, Typography, Select, Col } from "antd";
+import { Row, Typography, Select, Col } from "antd";
 import HTMLReactParser from 'html-react-parser';
 import "./tokenIndex.css";
-import { LimitOrder, MarketOrder, LineChart } from "./elements";
+import { LimitOrder, MarketOrder, LineChart, Loader, Ethereum } from "./elements";
 import millify from "millify";
-import { MoneyCollectOutlined, DollarCircleOutlined, FundOutlined, ExclamationCircleOutlined, StopOutlined, TrophyOutlined, CheckOutlined, NumberOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { useGetCryptoDetailsQuery, useGetCryptoHistoryQuery } from './services/cryptoApi';
 
-const {Title, Text} = Typography;
+const {Title} = Typography;
 const {Option} = Select;
 
 function TokenDetails() {
@@ -18,11 +17,11 @@ function TokenDetails() {
   const { data: coinHistory } = useGetCryptoHistoryQuery({coinId: uuid, timePeriod: timeperiod});
   const [orderType, setOrderType] =useState("market");
   const cryptoDetails = data?.data?.coin
-  
 
+    if(isFetching) return <Loader />;
 
-    if(isFetching) return "Loading...";
-
+    console.log(cryptoDetails)
+    console.log(coinHistory)
     const time = ['3h', '24h', '7d', '30d', '1y', '3m', '3y', '5y'];
     
   return (
@@ -32,7 +31,7 @@ function TokenDetails() {
         <img src={data?.data?.coin?.iconUrl} className="logo" />
         {data?.data?.coin.name} ({data?.data?.coin.symbol})
       </Title>
-        <div className="header-item">USD Price <br />${cryptoDetails?.price && millify(cryptoDetails?.price)}</div>
+        <div className="header-item">USD Price <br />${(cryptoDetails?.price) && millify(cryptoDetails?.price)}</div>
         <div className="header-item">Max Supply <br />{cryptoDetails?.supply?.total && millify(cryptoDetails?.supply?.total)} {data?.data?.coin.symbol} </div>
         <div className ="header-item">Circulating Supply <br />{cryptoDetails?.supply?.circulating && millify(cryptoDetails?.supply?.circulating)} {data?.data?.coin.symbol} </div>
         <div className="header-item">Market Cap <br />{cryptoDetails?.marketCap && millify(cryptoDetails?.marketCap)}</div>
@@ -46,30 +45,32 @@ function TokenDetails() {
           </Select>
           <LineChart coinHistory={coinHistory} currentPrice={millify(cryptoDetails.price)} coinName={cryptoDetails.name}/>
           </Row>
-          <Row>
-          <Title level={2} className="header-item">
-            Additional Stats
-          </Title>
-            <div>All Time high: {cryptoDetails?.allTimeHigh?.price && millify(cryptoDetails?.allTimeHigh?.price)}</div>
-            <div>24 hour Volume: {}</div>
-            <div>Number of Markets: {cryptoDetails?.numberOfMarkets}</div>
-            <div>Number of Exchanges: {cryptoDetails?.numberOfExchanges}</div>
-            <div>Rank: {cryptoDetails?.rank}</div>
+          <Row className="stats-card">
+            <Title level={2} style={{color: "lime", margin: "0px auto", marginTop: "2%"}}>
+              Additional Stats
+            </Title>
+            <div className="stats-card-data">
+              <div className="stat-item">All Time high: <br /> ${cryptoDetails?.allTimeHigh?.price && millify(cryptoDetails?.allTimeHigh?.price)}</div>
+              <div className="stat-item">Percent Change: <br />{cryptoDetails?.change}% </div>
+              <div className="stat-item">Number of Markets: <br/> {cryptoDetails?.numberOfMarkets}</div>
+              <div className="stat-item">Number of Exchanges: <br /> {cryptoDetails?.numberOfExchanges}</div>
+              <div className="stat-item">Rank: <br/> {cryptoDetails?.rank}</div>
+            </div>
           </Row>
         </Col>
 
         <Col className="right-column">
         <Row className="card-order">
           <div className="orderChoice">
-            <span onClick={() => setOrderType('limit')} className={orderType === 'limit' ? "selected" : "unselected"}>
+            <div onClick={() => setOrderType('limit')} className={orderType === 'limit' ? "selected" : "unselected"}>
               Limit Order
-            </span>
-            <span className={orderType === 'limit' ? "unselected" : "selected"} onClick={() => setOrderType('market')}>
+            </div>
+            <div className={orderType === 'limit' ? "unselected" : "selected"} onClick={() => setOrderType('market')}>
               Market Order
-            </span>
+            </div>
           </div>
           {orderType === 'limit' ? <LimitOrder /> : <MarketOrder />}
-
+          <Ethereum tokenPrice={cryptoDetails.price} />
         </Row>
         <Row className="website-container">
           <Title level={2} className="website-header">
@@ -83,9 +84,9 @@ function TokenDetails() {
           <Title level={2} className="website-header">
             Website
           </Title>
-          <div className="website">
+          <a href={cryptoDetails?.websiteUrl} className="website" >
             {cryptoDetails?.websiteUrl}
-          </div>
+          </a>
         </Row>
         </Col>
       </Col>

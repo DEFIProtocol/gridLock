@@ -85,6 +85,28 @@ header {
   display: flex;
   justify-content: center;
 }
+.header-items-container{
+  display: flex;
+  justify-content: flex-start;
+  margin-right: 30vw;
+}
+.header-items-container2{
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30vw;
+}
+.active-menu{
+  float: left;
+}
+
+@media screen and (max-width:760px){
+  .header-items-container{
+      flex-direction: column;
+      margin-top: 20%;
+      z-index: 1;
+      background-color: #202020;
+  }
+}
 
 .link {
   text-decoration: none;
